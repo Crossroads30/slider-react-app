@@ -6,28 +6,38 @@ function App() {
 	const [people, setPeople] = useState(data)
 	const [index, setIndex] = useState(2)
 
-	const checkNumber = number => {
-		if (number < 0) {
-			return people.length - 1
-		}
-		if (number > people.length - 1) {
-			return 0
-		}
-		return number
-	}
+  useEffect(() => {
+    const lastIndex = people.length -1
+    if ( index < 0 ) {
+      setIndex(lastIndex)
+    } if ( index > lastIndex ) {
+      setIndex(0)
+    }
+  }, [index, people])
 
-	const prevSlide = () => {
-		setIndex(index => {
-			const newIndex = index - 1
-			return checkNumber(newIndex)
-		})
-	}
-	const nextSlide = () => {
-		setIndex(index => {
-			const newIndex = index + 1
-			return checkNumber(newIndex)
-		})
-	}
+  // without useEffect
+	// const checkNumber = number => {
+	// 	if (number < 0) {
+	// 		return people.length - 1
+	// 	}
+	// 	if (number > people.length - 1) {
+	// 		return 0
+	// 	}
+	// 	return number
+	// }
+
+	// const prevSlide = () => {
+	// 	setIndex(index => {
+	// 		const newIndex = index - 1
+	// 		return checkNumber(newIndex)
+	// 	})
+	// }
+	// const nextSlide = () => {
+	// 	setIndex(index => {
+	// 		const newIndex = index + 1
+	// 		return checkNumber(newIndex)
+	// 	})
+	// }
 
 	return (
 		<section className='section'>
@@ -59,10 +69,20 @@ function App() {
 						</article>
 					)
 				})}
-				<button onClick={prevSlide} className='prev' type='button'>
+				{/* <button onClick={prevSlide} className='prev' type='button'> */}
+				<button
+					onClick={() => setIndex(index - 1)}
+					className='prev'
+					type='button'
+				>
 					<FiChevronLeft />
 				</button>
-				<button onClick={nextSlide} className='next' type='button'>
+				{/* <button onClick={nextSlide} className='next' type='button'> */}
+				<button
+					onClick={() => setIndex(index + 1)}
+					className='next'
+					type='button'
+				>
 					<FiChevronRight />
 				</button>
 			</div>
