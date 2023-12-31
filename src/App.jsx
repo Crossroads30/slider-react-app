@@ -5,7 +5,7 @@ import data from './data'
 function App() {
 	const [people, setPeople] = useState(data)
 	const [index, setIndex] = useState(0)
-	const { id, name, image, title, quote } = people[index]
+
 	return (
 		<main>
 			<section className='section'>
@@ -14,14 +14,26 @@ function App() {
 						<span>/</span>reviews
 					</h2>
 				</div>
-			</section>
-			<section className='section-center'>
-				<article>
-					<img className='person-img' src={image} alt={name} />
-					<h4>{name}</h4>
-					<div className='title'>{title}</div>
-					<p>{quote}</p>
-				</article>
+				<div className='section-center'>
+					{people.map((person, personIndex) => {
+						const { id, name, image, title, quote } = person
+						return (
+							<article key={id}>
+								<img className='person-img' src={image} alt={name} />
+								<h4>{name}</h4>
+								<p className='title'>{title}</p>
+								<p className='text'>{quote}</p>
+								<FaQuoteRight className='icon' />
+							</article>
+						)
+					})}
+					<button className='prev' type='button'>
+						<FiChevronLeft />
+					</button>
+					<button className='next' type='button'>
+						<FiChevronRight />
+					</button>
+				</div>
 			</section>
 		</main>
 	)
