@@ -15,6 +15,13 @@ function App() {
     }
   }, [index, people])
 
+  useEffect(() => {
+  const autoSlides = setInterval(() => {
+      setIndex(index + 1)
+    }, 3000)
+    return () => clearInterval(autoSlides) 
+  }, [index])
+
   // without useEffect
 	// const checkNumber = number => {
 	// 	if (number < 0) {
